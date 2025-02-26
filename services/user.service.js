@@ -1,6 +1,7 @@
 import { ServiceBroker } from "moleculer";
+import { MoleculerClientError } from "moleculer";
 import DBService from "moleculer-db";
-import MongooseDBAdapter from "moleculer-db-adapter-mongoose";
+import MongooseAdapter from "moleculer-db-adapter-mongoose";
 import dotenv from "dotenv";
 dotenv.config({ path: "../.env" });
 import bcrypt from "bcrypt";
@@ -12,7 +13,7 @@ const broker = new ServiceBroker();
 broker.createService({
   name: "users",
   mixins: [DBService, ApiGateway],
-  adapter: new MongooseDBAdapter(process.env.MONGO_URI),
+  adapter: new MongooseAdapter(process.env.MONGO_URI),
   model: user,
   settings: {
     fields: ["_id", "name", "email", "password", "createdAt"],
@@ -100,8 +101,6 @@ broker.createService({
     },
   },
 });
-
-console.log("DB URL:", process.env.DB_URL);
 
 broker.start();
 
