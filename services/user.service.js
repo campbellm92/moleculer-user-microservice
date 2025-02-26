@@ -3,6 +3,7 @@ import DBService from "moleculer-db";
 import MongooseDBAdaptor from "moleculer-db-adapter-mongoose";
 import dotenv from "dotenv";
 dotenv.config();
+import bcrypt from "bcrypt";
 import user from "../models/user";
 
 const broker = new ServiceBroker();
@@ -12,13 +13,39 @@ broker.createService({
   mixins: [DBService],
   adapter: new MongooseDBAdaptor(process.env.DB_URL),
   model: user,
+  settings: {
+    JWT_SECRET: process.env.JWT_SECRET,
+    fields: ["_id", "name", "email", "password", "createdAt"],
+    entityValidator: {
+      name: { type: "string" },
+      email: { type: "email" },
+      password: { type: "string", min: 8 },
+    },
+  },
   actions: {
     create: {
       params: {
         user: { type: "object" },
       },
       async handler(ctx) {
-        return await this.adapter.insert(ctx.params.user);
+        let entity = ctx.params.user;
+        await this.validateEntity(entity);
+
+        if (entity.email) {
+          const found = await this.adapter.findOne({ email: entity.email });
+          if (found) {
+            return Promise.reject(
+              new MoleculerClientError("Email exists!", 422, "Email exists!", [
+                { field: "email", message: "Email Exists" },
+              ])
+            );
+          }
+        }
+        entity.password = bcrypt.hashSync(entity.password, 10);
+        entity.createdAt = new Date();
+        const doc = await this.adapter.insert(entity);
+        const user = await this.transformDocuments(ctx, {}, doc);
+        return this.entityChanged("created", user, ctx).then(() => user);
       },
     },
     findAll: {
