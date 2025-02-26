@@ -5,12 +5,13 @@ import dotenv from "dotenv";
 dotenv.config();
 import bcrypt from "bcrypt";
 import user from "../models/user";
+import ApiGateway from "moleculer-web";
 
 const broker = new ServiceBroker();
 
 broker.createService({
   name: "users",
-  mixins: [DBService],
+  mixins: [DBService, ApiGateway],
   adapter: new MongooseDBAdaptor(process.env.DB_URL),
   model: user,
   settings: {
@@ -20,6 +21,18 @@ broker.createService({
       email: { type: "email" },
       password: { type: "string", min: 8 },
     },
+    routes: [
+      {
+        path: "/users",
+        aliases: {
+          "GET /users": "users.findAll",
+          "GET /users/:id": "users.findOne",
+          "POST /users": "users.create",
+          "PUT /users/:id": "users.update",
+          "DELETE /users/:id": "users.delete",
+        },
+      },
+    ],
   },
   actions: {
     create: {
@@ -83,5 +96,7 @@ broker.createService({
     },
   },
 });
+
+broker.start();
 
 export default broker;
