@@ -9,17 +9,6 @@ import ApiGateway from "moleculer-web";
 
 const broker = new ServiceBroker();
 
-const userParams = {
-  user: {
-    type: "object",
-    props: {
-      name: { type: "string" },
-      email: { type: "email" },
-      password: { type: "string", min: 8 },
-    },
-  },
-};
-
 broker.createService({
   name: "users",
   mixins: [DBService, ApiGateway],
@@ -47,7 +36,16 @@ broker.createService({
   },
   actions: {
     create: {
-      params: userParams,
+      params: {
+        user: {
+          type: "object",
+          props: {
+            name: { type: "string" },
+            email: { type: "email" },
+            password: { type: "string", min: 8 },
+          },
+        },
+      },
       async handler(ctx) {
         let entity = ctx.params.user;
         await this.validateEntity(entity);
@@ -62,6 +60,7 @@ broker.createService({
             );
           }
         }
+        entity.name = entity.name;
         entity.password = bcrypt.hashSync(entity.password, 10);
         entity.createdAt = new Date();
         const doc = await this.adapter.insert(entity);
@@ -71,21 +70,32 @@ broker.createService({
     },
 
     findAll: {
-      params: userParams,
       async handler(ctx) {
-        return await this.adapter.find(ctx.params.id);
+        return await this.adapter.find();
       },
     },
 
     findOne: {
-      params: userParams,
+      params: {
+        id: { type: "string" },
+      },
       async handler(ctx) {
         return await this.adapter.findById(ctx.params.id);
       },
     },
 
     update: {
-      params: userParams,
+      params: {
+        id: { type: "string" },
+        user: {
+          type: "object",
+          props: {
+            name: { type: "string" },
+            email: { type: "email" },
+            password: { type: "string", min: 8 },
+          },
+        },
+      },
       async handler(ctx) {
         return await this.adapter.updateById(ctx.params.id, {
           $set: ctx.params.user,
@@ -94,7 +104,9 @@ broker.createService({
     },
 
     delete: {
-      params: userParams,
+      params: {
+        id: { type: "string" },
+      },
       async handler(ctx) {
         return await this.adapter.removeById(ctx.params.id);
       },
