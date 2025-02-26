@@ -14,7 +14,6 @@ broker.createService({
   adapter: new MongooseDBAdaptor(process.env.DB_URL),
   model: user,
   settings: {
-    JWT_SECRET: process.env.JWT_SECRET,
     fields: ["_id", "name", "email", "password", "createdAt"],
     entityValidator: {
       name: { type: "string" },
