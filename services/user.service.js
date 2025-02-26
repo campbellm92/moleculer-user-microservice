@@ -1,5 +1,4 @@
 import { ServiceBroker } from "moleculer";
-import { MoleculerClientError } from "moleculer";
 import DBService from "moleculer-db";
 import MongooseAdapter from "moleculer-db-adapter-mongoose";
 import dotenv from "dotenv";
@@ -9,6 +8,17 @@ import user from "../models/user.js";
 import ApiGateway from "moleculer-web";
 
 const broker = new ServiceBroker();
+
+const userParams = {
+  user: {
+    type: "object",
+    props: {
+      name: { type: "string" },
+      email: { type: "email" },
+      password: { type: "string", min: 8 },
+    },
+  },
+};
 
 broker.createService({
   name: "users",
@@ -24,7 +34,7 @@ broker.createService({
     },
     routes: [
       {
-        path: "/users",
+        path: "/",
         aliases: {
           "GET /users": "users.findAll",
           "GET /users/:id": "users.findOne",
@@ -37,9 +47,7 @@ broker.createService({
   },
   actions: {
     create: {
-      params: {
-        user: { type: "object" },
-      },
+      params: userParams,
       async handler(ctx) {
         let entity = ctx.params.user;
         await this.validateEntity(entity);
@@ -63,27 +71,21 @@ broker.createService({
     },
 
     findAll: {
-      params: {
-        user: { type: "object" },
-      },
+      params: userParams,
       async handler(ctx) {
         return await this.adapter.find(ctx.params.id);
       },
     },
 
     findOne: {
-      params: {
-        user: { type: "object" },
-      },
+      params: userParams,
       async handler(ctx) {
         return await this.adapter.findById(ctx.params.id);
       },
     },
 
     update: {
-      params: {
-        user: { type: "object" },
-      },
+      params: userParams,
       async handler(ctx) {
         return await this.adapter.updateById(ctx.params.id, {
           $set: ctx.params.user,
@@ -92,9 +94,7 @@ broker.createService({
     },
 
     delete: {
-      params: {
-        user: { type: "object" },
-      },
+      params: userParams,
       async handler(ctx) {
         return await this.adapter.removeById(ctx.params.id);
       },
