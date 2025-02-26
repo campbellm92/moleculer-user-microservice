@@ -5,17 +5,23 @@ Microservice naming conventions
 https://softwareengineering.stackexchange.com/questions/348710/what-is-the-best-practice-when-it-comes-to-naming-microservices
 https://www.geeksforgeeks.org/naming-problem-in-microservice-system-design/
 
-Creating a microservices with Node and Molecular
+Creating a microservices with Molecular
 https://medium.com/@r.heygate.dev/microservices-with-moleculer-js-c7e68803ec09
 https://medium.com/nerd-for-tech/how-to-build-a-microservice-with-nodejs-express-and-mongodb-73737b6fa868
 https://www.youtube.com/watch?v=G4Ag_f-uero
 https://www.youtube.com/watch?v=t4YR6MWrugw
-
-Creating a Moleculer service broker
-https://moleculer.services/docs/0.14/broker.html
 
 Seeding data with Python
 https://github.com/mongolab/mongodb-driver-examples/blob/master/python/pymongo_simple_example.py
 
 Mixins
 https://www.youtube.com/watch?v=QWVuubrms18
+
+Testing with Insomnia/Postman
+https://moleculer.services/docs/0.12/moleculer-web.html
+
+
+
+CHATGPT:
+removing repetition of 'params': https://chatgpt.com/share/67bf27ab-2c5c-8013-9673-2814b6cd2313
+
