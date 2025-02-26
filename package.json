@@ -11,6 +11,8 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "moleculer": "^0.14.35",
+    "moleculer-db": "^0.8.28",
+    "moleculer-db-adapter-mongoose": "^0.10.0",
     "moleculer-web": "^0.10.7",
     "mongoose": "^8.10.2"
   }
