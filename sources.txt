@@ -1,0 +1,14 @@
+Express vs Molecular
+https://stackshare.io/stackups/expressjs-vs-moleculer
+
+Microservice naming conventions
+https://softwareengineering.stackexchange.com/questions/348710/what-is-the-best-practice-when-it-comes-to-naming-microservices
+https://www.geeksforgeeks.org/naming-problem-in-microservice-system-design/
+
+Creating a microservices with Node and Molecular
+https://medium.com/@r.heygate.dev/microservices-with-moleculer-js-c7e68803ec09
+https://medium.com/nerd-for-tech/how-to-build-a-microservice-with-nodejs-express-and-mongodb-73737b6fa868
+https://www.youtube.com/watch?v=G4Ag_f-uero
+
+Seeding data with Python
+https://github.com/mongolab/mongodb-driver-examples/blob/master/python/pymongo_simple_example.py
