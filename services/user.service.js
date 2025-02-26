@@ -4,7 +4,7 @@ import MongooseDBAdaptor from "moleculer-db-adapter-mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 import bcrypt from "bcrypt";
-import user from "../models/user";
+import user from "../models/user.js";
 import ApiGateway from "moleculer-web";
 
 const broker = new ServiceBroker();
@@ -60,39 +60,43 @@ broker.createService({
         return this.entityChanged("created", user, ctx).then(() => user);
       },
     },
+
     findAll: {
       params: {
         user: { type: "object" },
       },
+      async handler(ctx) {
+        return await this.adapter.find(ctx.params.id);
+      },
     },
-    async handler(ctx) {
-      return await this.adapter.find(ctx.params.id);
-    },
+
     findOne: {
       params: {
         user: { type: "object" },
       },
+      async handler(ctx) {
+        return await this.adapter.findById(ctx.params.id);
+      },
     },
-    async handler(ctx) {
-      return await this.adapter.findById(ctx.params.id);
-    },
+
     update: {
       params: {
         user: { type: "object" },
       },
+      async handler(ctx) {
+        return await this.adapter.updateById(ctx.params.id, {
+          $set: ctx.params.user,
+        });
+      },
     },
-    async handler(ctx) {
-      return await this.adapter.updateById(ctx.params.id, {
-        $set: ctx.params.user,
-      });
-    },
+
     delete: {
       params: {
         user: { type: "object" },
       },
-    },
-    async handler(ctx) {
-      return await this.adapter.removeById(ctx.params.id);
+      async handler(ctx) {
+        return await this.adapter.removeById(ctx.params.id);
+      },
     },
   },
 });
