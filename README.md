@@ -22,9 +22,13 @@ The project is configured to be tested in Postman or Insomnia with http://localh
 The following endpoints can be tested:
 
 **GET (get all records)**: Send a GET request to http://localhost:3000/users/
+
 **GET (get one record)**: Send a GET request to http://localhost:3000/users/:id, for example http://localhost:3000/users/67bf52017ef822b5b57cd5b0
+
 **POST (create a user)**: Copy and paste the JSON object from userExample.json
+
 **PUT (update a user)**: Send a PUT request to http://localhost:3000/users/:id with a JSON response body like in the POST example
+
 **DELETE (delete a user)**: Send a DELETE request to http://localhost:3000/users/:id
 
 ### Known issues
