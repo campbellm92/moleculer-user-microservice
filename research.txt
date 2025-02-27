@@ -20,8 +20,18 @@ https://www.youtube.com/watch?v=QWVuubrms18
 Testing with Insomnia/Postman
 https://moleculer.services/docs/0.12/moleculer-web.html
 
+Python dotenv
+https://www.geeksforgeeks.org/how-to-create-and-use-env-files-in-python/
 
+Faker for seeding
+https://faker.readthedocs.io/en/master/#seeding-the-generator
+
+Pymongo insert
+https://www.w3schools.com/python/python_mongodb_insert.asp
 
 CHATGPT:
 removing repetition of 'params': https://chatgpt.com/share/67bf27ab-2c5c-8013-9673-2814b6cd2313
+db connection issues troubleshooting: https://chatgpt.com/share/67bf3232-dc8c-8013-b58f-39ce3ed5c95b
+model matches with param validation?: https://chatgpt.com/share/67bf3898-6610-8013-98ce-66d921cd3fc5
+assess initial python seeder script: https://chatgpt.com/share/67bf4bda-c21c-8013-84a6-82dd534e6b79
 
