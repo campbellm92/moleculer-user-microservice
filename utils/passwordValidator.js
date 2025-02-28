@@ -28,7 +28,7 @@ const schema = {
   },
 };
 
-const check = v.compile(schema);
+const validatePassword = v.compile(schema);
 
 // console.log(check({ password: "Foo123!" }));
 // console.log(check({ password: "foobar!122!" }));
@@ -36,4 +36,4 @@ const check = v.compile(schema);
 // console.log(check({ password: "Foobar!!" }));
 // console.log(check({ password: "Foobar123" }));
 
-export default check;
+export default validatePassword;
