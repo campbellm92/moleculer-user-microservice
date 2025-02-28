@@ -1,3 +1,4 @@
+// should probably separate gateway and auth logic
 import { ServiceBroker } from "moleculer";
 import { UnAuthorizedError, NotFoundError } from "moleculer";
 import ApiGatewayService from "moleculer-web";
@@ -95,7 +96,7 @@ broker.createService({
       async handler(ctx) {
         try {
           const decoded = jwt.verify(ctx.params.token, process.env.JWT_SECRET);
-          return ctx.call("users.findOne", { id: decoded.id });
+          return ctx.call("users.findOne", { _id: decoded.id });
         } catch (error) {
           return Promise.reject(new Error("Invalid token"));
         }
