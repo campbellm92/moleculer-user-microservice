@@ -47,6 +47,39 @@ broker.createService({
       ctx.meta.user = user;
     },
   },
+  actions: {
+    login: {
+      params: {
+        email: "email",
+        password: "string",
+      },
+      async handler(ctx) {
+        const { email, password } = ctx.params;
+
+        const user = await ctx.call("users.findOne", { email });
+
+        if (!user) {
+          return Promise.reject(
+            new NotFoundError("There is no record for these credentials.")
+          );
+        }
+
+        const matching = await bcrypt.compare(password, user.password);
+        if (!matching) {
+          return Promise.reject(new Error("Invalid email or password."));
+        }
+
+        const token = jwt.sign(
+          { id: user._id, email: user.email },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "1h",
+          }
+        );
+        return { token, user };
+      },
+    },
+  },
 });
 
 broker.start();
