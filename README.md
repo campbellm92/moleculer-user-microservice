@@ -33,5 +33,4 @@ The following endpoints can be tested:
 
 ### Known issues
 
-- no authentication as yet for sensitive write operations
-- passwords in records seeded with the Python script don't appear to be hashing
+- auth service not currently working
