@@ -11,7 +11,7 @@ import path from "path";
 
 const broker = new ServiceBroker();
 
-broker.loadServices(path.join(__dirname, "."), "*.service.js"); // check "."
+broker.loadServices(path.join(__dirname, "services"), "*.service.js");
 
 broker.createService({
   name: "users",
