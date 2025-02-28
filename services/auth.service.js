@@ -1,5 +1,5 @@
 import { ServiceBroker } from "moleculer";
-import { MoleculerError } from "moleculer";
+import { UnAuthorizedError, NotFoundError } from "moleculer";
 import ApiGatewayService from "moleculer-web";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -25,6 +25,15 @@ broker.createService({
       limit: 10,
       headers: true,
     },
+    routes: [
+      {
+        path: "/",
+        authorization: true,
+        aliases: {
+          "POST login": "login",
+        },
+      },
+    ],
   },
   methods: {
     async authorize(ctx, route, req) {
