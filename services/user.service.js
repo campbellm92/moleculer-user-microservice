@@ -6,8 +6,12 @@ dotenv.config({ path: "../.env" });
 import bcrypt from "bcrypt";
 import user from "../models/user.js";
 import ApiGateway from "moleculer-web";
+// import fs from "fs";
+import path from "path";
 
 const broker = new ServiceBroker();
+
+broker.loadServices(path.join(__dirname, "."), "*.service.js"); // check "."
 
 broker.createService({
   name: "users",
@@ -46,6 +50,7 @@ broker.createService({
           },
         },
       },
+      // pw strength validation?
       async handler(ctx) {
         let entity = ctx.params.user;
         await this.validateEntity(entity);
