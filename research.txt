@@ -10,9 +10,14 @@ https://medium.com/@r.heygate.dev/microservices-with-moleculer-js-c7e68803ec09
 https://medium.com/nerd-for-tech/how-to-build-a-microservice-with-nodejs-express-and-mongodb-73737b6fa868
 https://www.youtube.com/watch?v=G4Ag_f-uero
 https://www.youtube.com/watch?v=t4YR6MWrugw
+- removing repetition of 'params': https://chatgpt.com/share/67bf27ab-2c5c-8013-9673-2814b6cd2313
+- db connection issues troubleshooting: https://chatgpt.com/share/67bf3232-dc8c-8013-b58f-39ce3ed5c95b
+- model matches with param validation?: https://chatgpt.com/share/67bf3898-6610-8013-98ce-66d921cd3fc5
 
 Seeding data with Python
 https://github.com/mongolab/mongodb-driver-examples/blob/master/python/pymongo_simple_example.py
+assess initial python seeder script: https://chatgpt.com/share/67bf4bda-c21c-8013-84a6-82dd534e6b79
+
 
 Mixins
 https://www.youtube.com/watch?v=QWVuubrms18
@@ -29,9 +34,12 @@ https://faker.readthedocs.io/en/master/#seeding-the-generator
 Pymongo insert
 https://www.w3schools.com/python/python_mongodb_insert.asp
 
-CHATGPT:
-removing repetition of 'params': https://chatgpt.com/share/67bf27ab-2c5c-8013-9673-2814b6cd2313
-db connection issues troubleshooting: https://chatgpt.com/share/67bf3232-dc8c-8013-b58f-39ce3ed5c95b
-model matches with param validation?: https://chatgpt.com/share/67bf3898-6610-8013-98ce-66d921cd3fc5
-assess initial python seeder script: https://chatgpt.com/share/67bf4bda-c21c-8013-84a6-82dd534e6b79
+Password validator:
+https://uibakery.io/regex-library/password
+https://github.com/icebob/fastest-validator
+https://stackoverflow.com/questions/69910484/fastest-validator-package-how-to-have-multiple-pattern-and-message
+https://chatgpt.com/share/67c1bc3f-5fd4-8013-836d-3b0ffeea5926
+
+
+
 
