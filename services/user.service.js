@@ -110,6 +110,15 @@ broker.createService({
       },
     },
 
+    findByEmail: {
+      params: {
+        email: { type: "email" },
+      },
+      async handler(ctx) {
+        return await this.adapter.findOne({ email: ctx.params.email });
+      },
+    },
+
     update: {
       params: {
         id: { type: "string" },
