@@ -1,4 +1,4 @@
-import { ServiceBroker } from "moleculer";
+import { ServiceBroker, Errors } from "moleculer";
 import DBService from "moleculer-db";
 import MongooseAdapter from "moleculer-db-adapter-mongoose";
 import dotenv from "dotenv";
@@ -7,9 +7,14 @@ import bcrypt from "bcrypt";
 import user from "../models/user.js";
 import ApiGateway from "moleculer-web";
 // import fs from "fs";
+import { fileURLToPath } from "url";
 import path from "path";
+import validatePassword from "../utils/passwordValidator.js";
 
 const broker = new ServiceBroker();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 broker.loadServices(path.join(__dirname, "services"), "*.service.js");
 
@@ -55,13 +60,29 @@ broker.createService({
         let entity = ctx.params.user;
         await this.validateEntity(entity);
 
+        const passwordValidation = validatePassword({
+          password: entity.password,
+        });
+
+        if (passwordValidation !== true) {
+          throw new Errors.MoleculerClientError(
+            "Password validation failed",
+            422,
+            "VALIDATION_ERROR",
+            passwordValidation
+          );
+        }
+
         if (entity.email) {
           const found = await this.adapter.findOne({ email: entity.email });
           if (found) {
             return Promise.reject(
-              new MoleculerClientError("Email exists!", 422, "Email exists!", [
-                { field: "email", message: "Email Exists" },
-              ])
+              new Errors.MoleculerClientError(
+                "Email exists!",
+                422,
+                "Email exists!",
+                [{ field: "email", message: "Email Exists" }]
+              )
             );
           }
         }
@@ -102,6 +123,23 @@ broker.createService({
         },
       },
       async handler(ctx) {
+        if (ctx.params.user.password) {
+          const passwordValidation = validatePassword({
+            password: ctx.params.user.password,
+          });
+          if (passwordValidation !== true) {
+            throw new Errors.MoleculerClientError(
+              "Password validation failed",
+              422,
+              "VALIDATION_ERROR",
+              passwordValidation
+            );
+          }
+          ctx.params.user.password = bcrypt.hashSync(
+            ctx.params.user.password,
+            10
+          );
+        }
         return await this.adapter.updateById(ctx.params.id, {
           $set: ctx.params.user,
         });
