@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "cd services && node user.service.js"
+    "start-user": "cd services && node user.service.js",
+    "start-auth": "cd services && node auth.service.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.7",
+    "jsonwebtoken": "^9.0.2",
     "moleculer": "^0.14.35",
     "moleculer-db": "^0.8.28",
     "moleculer-db-adapter-mongoose": "^0.10.0",
