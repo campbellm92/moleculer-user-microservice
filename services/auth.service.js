@@ -29,9 +29,15 @@ broker.createService({
     routes: [
       {
         path: "/auth",
-        authorization: true,
         aliases: {
           "POST login": "auth.login",
+        },
+      },
+      {
+        path: "/secure",
+        authorization: true,
+        aliases: {
+          "GET profile": "auth.profile",
         },
       },
     ],
@@ -99,7 +105,7 @@ broker.createService({
       async handler(ctx) {
         try {
           const decoded = jwt.verify(ctx.params.token, process.env.JWT_SECRET);
-          return ctx.call("users.findByEmail", { _id: decoded.id });
+          return ctx.call("users.findByEmail", { email: decoded.email });
         } catch (error) {
           // return Promise.reject(new Error("Invalid token"));
           return null;
